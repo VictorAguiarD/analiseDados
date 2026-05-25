@@ -435,9 +435,7 @@ with tab_temp:
             
         # Daily Average Ticket Analysis
         st.subheader("Análise do Ticket Médio por Dia da Semana")
-        df_ticket_dow = df_filtered.groupby('Dia_Semana', observed=False).apply(
-            lambda x: x['Total_Venda'].sum() / len(x) if len(x) > 0 else 0
-        ).reindex(ordem_dias).reset_index()
+        df_ticket_dow = df_filtered.groupby('Dia_Semana', observed=False)['Total_Venda'].mean().reindex(ordem_dias).reset_index()
         df_ticket_dow.columns = ['Dia_Semana', 'Ticket_Medio']
         
         fig_ticket_dow = px.bar(
